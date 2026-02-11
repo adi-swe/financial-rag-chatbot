@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: financial-rag-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: financial-rag-frontend
+  template:
+    metadata:
+      labels:
+        app: financial-rag-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: financial-rag-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Spectral:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: "Spectral", serif;
+  background: radial-gradient(circle at 15% 20%, #ffffff 0%, #f8f5ef 30%, #d7e6f3 75%, #c3d3e4 100%);
+  min-height: 100vh;
+}
+
+.bg-atlas {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-atlas::before,
+.bg-atlas::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.bg-atlas::before {
+  width: 480px;
+  height: 480px;
+  background: #f3a264;
+  top: -120px;
+  right: -140px;
+}
+
+.bg-atlas::after {
+  width: 360px;
+  height: 360px;
+  background: #9bd4ff;
+  bottom: -120px;
+  left: -80px;
+}

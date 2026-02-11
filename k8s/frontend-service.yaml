@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: financial-rag-frontend
+spec:
+  selector:
+    app: financial-rag-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
