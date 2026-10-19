@@ -8,6 +8,14 @@ Local-first RAG chatbot for financial PDFs using Flask, LangChain, FAISS, and Ol
 - Local Llama chat model via Ollama
 - React + Vite + Tailwind UI
 
+## Improvement planning
+
+- [Proposed decisions](docs/decision.md)
+- [Current and proposed application flows](docs/flow.md)
+- [Phased implementation plan](docs/plan.md)
+- [Baseline verification and test setup](docs/baseline.md)
+- [Current API contract](docs/api-contract.md)
+
 ## Prerequisites
 - Python 3.10+
 - Node.js 18+
@@ -74,6 +82,32 @@ Update `OLLAMA_BASE_URL` in the config map if Ollama is hosted elsewhere.
 - `POST /ingest` (multipart form-data with `file`)
 - `POST /chat` JSON: `{ "query": "..." }`
 - `GET /health`
+
+## Tests
+
+GitHub Actions [CI](.github/workflows/ci.yml) runs on pushes, pull requests, and
+manual dispatches. Separate Ubuntu 24.04 jobs run the offline backend suite on
+Python 3.11 and build the frontend from its lockfile on Node 22. No secrets or
+Ollama models are required. GitHub execution is pending the first push of the
+workflow and test files; this workflow does not deploy the application.
+
+From the repository root, after installing the backend requirements:
+
+```sh
+backend/.venv/bin/python -m unittest discover -s backend/tests -v
+```
+
+The default suite uses synthetic data and model substitutes; it does not call
+Ollama or download models. The real Ollama ingest/chat/restart smoke test is
+explicitly opt-in and requires both configured models to be installed:
+
+```sh
+backend/.venv/bin/python backend/scripts/smoke_ollama.py --run
+```
+
+See [baseline setup and results](docs/baseline.md) for environment creation,
+model provisioning, current limitations, and the difference between offline
+checks and real-model verification.
 
 ## Notes
 - Vector store files are saved under `backend/vectorstore`.
